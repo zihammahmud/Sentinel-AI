@@ -1,0 +1,156 @@
+{% extends "base.html" %}
+
+{% block title %}AI Analysis - Sentinel AI{% endblock %}
+
+{% block content %}
+<div class="row g-4 mb-4">
+    <div class="col-12">
+        <div class="card">
+            <div class="card-header">
+                <span>&#129302; Classical AI Algorithms</span>
+            </div>
+            <div class="card-body">
+                <p class="text-secondary">
+                    Run classical AI algorithms against the simulated network. 
+                    All algorithms are implemented in pure Python and operate on the actual network state.
+                </p>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="row g-4">
+    <!-- BFS Panel -->
+    <div class="col-md-6">
+        <div class="algorithm-panel">
+            <h5 class="text-success mb-3">BFS &mdash; Network Discovery</h5>
+            <p class="small text-secondary">Breadth-First Search for network discovery and nearby-device investigation.</p>
+            <div class="mb-3">
+                <label class="form-label">Start Node (Device ID)</label>
+                <select class="form-select" id="bfs-start"></select>
+            </div>
+            <button class="btn btn-success w-100 mb-3" onclick="runBFS()">Run BFS</button>
+            <div id="bfs-result" class="algorithm-result d-none"></div>
+        </div>
+    </div>
+
+    <!-- DFS Panel -->
+    <div class="col-md-6">
+        <div class="algorithm-panel">
+            <h5 class="text-info mb-3">DFS &mdash; Deep Investigation</h5>
+            <p class="small text-secondary">Depth-First Search for attack-chain tracing and suspicious path analysis.</p>
+            <div class="mb-3">
+                <label class="form-label">Start Node (Device ID)</label>
+                <select class="form-select" id="dfs-start"></select>
+            </div>
+            <button class="btn btn-info w-100 mb-3" onclick="runDFS()">Run DFS</button>
+            <div id="dfs-result" class="algorithm-result d-none"></div>
+        </div>
+    </div>
+
+    <!-- DLS Panel -->
+    <div class="col-md-6">
+        <div class="algorithm-panel">
+            <h5 class="text-warning mb-3">Depth-Limited Search</h5>
+            <p class="small text-secondary">DLS for controlled-depth network scanning.</p>
+            <div class="mb-3">
+                <label class="form-label">Start Node</label>
+                <select class="form-select" id="dls-start"></select>
+            </div>
+            <div class="mb-3">
+                <label class="form-label">Depth Limit</label>
+                <input type="number" class="form-control" id="dls-limit" value="3" min="1" max="10">
+            </div>
+            <button class="btn btn-warning w-100 mb-3" onclick="runDLS()">Run DLS</button>
+            <div id="dls-result" class="algorithm-result d-none"></div>
+        </div>
+    </div>
+
+    <!-- IDS Panel -->
+    <div class="col-md-6">
+        <div class="algorithm-panel">
+            <h5 class="text-purple mb-3">Iterative Deepening Search</h5>
+            <p class="small text-secondary">IDS for finding compromised nodes at unknown depths.</p>
+            <div class="mb-3">
+                <label class="form-label">Start Node</label>
+                <select class="form-select" id="ids-start"></select>
+            </div>
+            <div class="mb-3">
+                <label class="form-label">Max Depth</label>
+                <input type="number" class="form-control" id="ids-max-depth" value="5" min="1" max="15">
+            </div>
+            <button class="btn btn-primary w-100 mb-3" style="background-color: #8b5cf6; border: none;" onclick="runIDS()">Run IDS</button>
+            <div id="ids-result" class="algorithm-result d-none"></div>
+        </div>
+    </div>
+
+    <!-- A* Panel -->
+    <div class="col-md-6">
+        <div class="algorithm-panel">
+            <h5 class="text-cyan mb-3">A* &mdash; Optimal Isolation Route</h5>
+            <p class="small text-secondary">A* pathfinding for optimal defensive response routing.</p>
+            <div class="mb-3">
+                <label class="form-label">Start Node</label>
+                <select class="form-select" id="astar-start"></select>
+            </div>
+            <div class="mb-3">
+                <label class="form-label">Goal Node</label>
+                <select class="form-select" id="astar-goal"></select>
+            </div>
+            <button class="btn btn-primary w-100 mb-3" style="background-color: #06b6d4; border: none;" onclick="runAStar()">Run A*</button>
+            <div id="astar-result" class="algorithm-result d-none"></div>
+        </div>
+    </div>
+
+    <!-- Bayesian Panel -->
+    <div class="col-md-6">
+        <div class="algorithm-panel">
+            <h5 class="text-success mb-3">Bayesian Reasoning</h5>
+            <p class="small text-secondary">Bayesian probability analysis for compromise likelihood given observed symptoms.</p>
+            <div class="mb-3">
+                <label class="form-label">Device</label>
+                <select class="form-select" id="bayesian-device"></select>
+            </div>
+            <button class="btn btn-success w-100 mb-3" onclick="runBayesian()">Run Bayesian Analysis</button>
+            <div id="bayesian-result" class="algorithm-result d-none"></div>
+        </div>
+    </div>
+
+    <!-- Alpha-Beta Panel -->
+    <div class="col-md-6">
+        <div class="algorithm-panel">
+            <h5 class="text-danger mb-3">Alpha-Beta Pruning</h5>
+            <p class="small text-secondary">Game tree search for optimal defensive strategy selection.</p>
+            <button class="btn btn-danger w-100 mb-3" onclick="runAlphaBeta()">Run Alpha-Beta Analysis</button>
+            <div id="alphabeta-result" class="algorithm-result d-none"></div>
+        </div>
+    </div>
+
+    <!-- CSP Panel -->
+    <div class="col-md-6">
+        <div class="algorithm-panel">
+            <h5 class="text-warning mb-3">Constraint Satisfaction</h5>
+            <p class="small text-secondary">CSP for firewall rule optimization and network segmentation.</p>
+            <button class="btn btn-warning w-100 mb-3" onclick="runCSP()">Run CSP Optimization</button>
+            <div id="csp-result" class="algorithm-result d-none"></div>
+        </div>
+    </div>
+</div>
+
+<div class="row g-4 mt-2">
+    <div class="col-12">
+        <div class="card">
+            <div class="card-header">Algorithm Activity Log</div>
+            <div class="card-body">
+                <div id="algorithm-log" class="event-log">
+                    <div class="text-secondary small">Run algorithms to see results here.</div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block scripts %}
+<script src="{{ url_for('static', filename='js/algorithms.js') }}"></script>
+{% endblock %}

@@ -1,0 +1,124 @@
+{% extends "base.html" %}
+
+{% block title %}Attack Simulation - Sentinel AI{% endblock %}
+
+{% block content %}
+<div class="row g-4">
+    <div class="col-md-4">
+        <div class="card">
+            <div class="card-header">Launch Attack</div>
+            <div class="card-body">
+                <form id="attack-form">
+                    <div class="mb-3">
+                        <label class="form-label">Attack Type</label>
+                        <select class="form-select" id="attack-type">
+                            <option value="malware_propagation">Malware Propagation</option>
+                            <option value="ransomware">Ransomware Simulation</option>
+                            <option value="ddos">DDoS Simulation</option>
+                            <option value="insider_threat">Insider Threat</option>
+                            <option value="phishing">Phishing-Based Compromise</option>
+                        </select>
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label">Source Device</label>
+                        <select class="form-select" id="attack-source"></select>
+                        <div class="form-text text-secondary">Device where attack originates</div>
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label">Target Device (optional)</label>
+                        <select class="form-select" id="attack-target">
+                            <option value="">-- Select target --</option>
+                        </select>
+                        <div class="form-text text-secondary">Primary target (mainly for DDoS)</div>
+                    </div>
+                    <button type="submit" class="btn btn-danger w-100 mb-2">
+                        <span class="me-2">&#9888;</span> Launch Attack
+                    </button>
+                    <button type="button" class="btn btn-warning w-100" onclick="stopAttack()">
+                        Stop All Attacks
+                    </button>
+                </form>
+            </div>
+        </div>
+
+        <div class="card mt-4">
+            <div class="card-header">Attack Information</div>
+            <div class="card-body">
+                <div id="attack-info">
+                    <p class="text-secondary small">Select an attack type to see details.</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="card mt-4">
+            <div class="card-header">Quick Defenses</div>
+            <div class="card-body">
+                <button class="btn btn-success w-100 mb-2" onclick="isolateAllCompromised()">
+                    Isolate All Compromised
+                </button>
+                <button class="btn btn-info w-100 mb-2" onclick="resetNetwork()">
+                    Restore All Devices
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-md-8">
+        <div class="card">
+            <div class="card-header d-flex justify-content-between align-items-center">
+                <span>Attack Progress</span>
+                <span id="simulation-status" class="badge bg-secondary">Idle</span>
+            </div>
+            <div class="card-body">
+                <div id="attack-progress" class="timeline">
+                    <div class="timeline-item">
+                        <div class="small text-secondary">No active simulation</div>
+                    </div>
+                </div>
+
+                <div class="mt-4">
+                    <h6 class="text-success">Current Stage</h6>
+                    <div class="progress" style="height: 30px;">
+                        <div class="progress-bar progress-bar-striped progress-bar-animated bg-danger" 
+                             id="attack-progress-bar" style="width: 0%">
+                            Idle
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="card mt-4">
+            <div class="card-header">Attack History</div>
+            <div class="card-body">
+                <div class="table-responsive">
+                    <table class="table table-dark table-hover table-sm">
+                        <thead>
+                            <tr>
+                                <th>ID</th>
+                                <th>Type</th>
+                                <th>Severity</th>
+                                <th>Status</th>
+                                <th>Stage</th>
+                                <th>Start Time</th>
+                            </tr>
+                        </thead>
+                        <tbody id="attack-history-body"></tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+
+        <div class="card mt-4">
+            <div class="card-header">Propagation Visualization</div>
+            <div class="card-body p-0">
+                <div id="attack-network-graph" style="width: 100%; height: 400px; background: #111827; border-radius: 8px;"></div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block scripts %}
+<script src="{{ url_for('static', filename='js/attacks.js') }}"></script>
+{% endblock %}

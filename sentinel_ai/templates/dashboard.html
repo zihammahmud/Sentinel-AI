@@ -1,0 +1,165 @@
+{% extends "base.html" %}
+
+{% block title %}Dashboard - Sentinel AI{% endblock %}
+
+{% block content %}
+<div class="row g-4 mb-4">
+    <div class="col-md-2">
+        <div class="card stat-card h-100">
+            <div class="card-body">
+                <div class="stat-label text-secondary">Total Devices</div>
+                <div class="stat-value text-info" id="stat-total">0</div>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-2">
+        <div class="card stat-card h-100">
+            <div class="card-body">
+                <div class="stat-label text-secondary">Healthy</div>
+                <div class="stat-value text-success" id="stat-healthy">0</div>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-2">
+        <div class="card stat-card warning h-100">
+            <div class="card-body">
+                <div class="stat-label text-secondary">Suspicious</div>
+                <div class="stat-value text-warning" id="stat-suspicious">0</div>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-2">
+        <div class="card stat-card danger h-100">
+            <div class="card-body">
+                <div class="stat-label text-secondary">Compromised</div>
+                <div class="stat-value text-danger" id="stat-compromised">0</div>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-2">
+        <div class="card stat-card purple h-100">
+            <div class="card-body">
+                <div class="stat-label text-secondary">Isolated</div>
+                <div class="stat-value text-purple" id="stat-isolated">0</div>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-2">
+        <div class="card stat-card info h-100">
+            <div class="card-body">
+                <div class="stat-label text-secondary">Risk Score</div>
+                <div class="stat-value text-cyan" id="stat-risk">0</div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="row g-4 mb-4">
+    <div class="col-md-8">
+        <div class="card h-100">
+            <div class="card-header d-flex justify-content-between align-items-center">
+                <span><i class="bi bi-diagram-3"></i> Live Network Graph</span>
+                <div>
+                    <button class="btn btn-sm btn-success" onclick="seedNetwork()">Seed Network</button>
+                    <button class="btn btn-sm btn-warning" onclick="resetNetwork()">Reset</button>
+                </div>
+            </div>
+            <div class="card-body p-0">
+                <div id="network-graph"></div>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-4">
+        <div class="card h-100">
+            <div class="card-header">
+                <span>Threat Overview</span>
+            </div>
+            <div class="card-body">
+                <div class="mb-3">
+                    <div class="d-flex justify-content-between mb-1">
+                        <span>Threat Level</span>
+                        <span id="threat-level" class="fw-bold text-success">Low</span>
+                    </div>
+                    <div class="progress">
+                        <div class="progress-bar bg-success" id="threat-bar" style="width: 0%"></div>
+                    </div>
+                </div>
+                <div class="mb-3">
+                    <div class="d-flex justify-content-between mb-1">
+                        <span>Risk Score</span>
+                        <span id="risk-score-display" class="fw-bold">0/100</span>
+                    </div>
+                    <div class="progress">
+                        <div class="progress-bar bg-info" id="risk-bar" style="width: 0%"></div>
+                    </div>
+                </div>
+                <hr class="border-secondary">
+                <h6 class="text-success mb-2">AI Recommendation</h6>
+                <p class="small text-secondary mb-0" id="ai-recommendation">Initialize network to begin monitoring.</p>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="row g-4 mb-4">
+    <div class="col-md-4">
+        <div class="card h-100">
+            <div class="card-header">Device Status Distribution</div>
+            <div class="card-body">
+                <canvas id="statusChart"></canvas>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-4">
+        <div class="card h-100">
+            <div class="card-header">Device Types</div>
+            <div class="card-body">
+                <canvas id="typeChart"></canvas>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-4">
+        <div class="card h-100">
+            <div class="card-header">Vulnerability Score</div>
+            <div class="card-body">
+                <canvas id="vulnChart"></canvas>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="row g-4">
+    <div class="col-md-6">
+        <div class="card">
+            <div class="card-header d-flex justify-content-between align-items-center">
+                <span>Active Attack</span>
+                <span id="attack-status" class="badge bg-secondary">No Active Attack</span>
+            </div>
+            <div class="card-body">
+                <div id="attack-timeline" class="timeline">
+                    <div class="timeline-item">
+                        <div class="small text-secondary">No attack in progress</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-6">
+        <div class="card">
+            <div class="card-header d-flex justify-content-between align-items-center">
+                <span>Event Log</span>
+                <button class="btn btn-sm btn-outline-secondary" onclick="loadEvents()">Refresh</button>
+            </div>
+            <div class="card-body">
+                <div id="event-log" class="event-log">
+                    <div class="text-secondary small">No events recorded yet.</div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block scripts %}
+<script src="{{ url_for('static', filename='js/dashboard.js') }}"></script>
+{% endblock %}
