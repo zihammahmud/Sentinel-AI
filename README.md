@@ -6,10 +6,10 @@ Sentinel AI is a cybersecurity-focused academic software project designed to exp
 
 The project demonstrates how classical artificial intelligence concepts can be applied to cybersecurity scenarios in a controlled simulation environment.
 
-> **Project Type:** Academic Project
-> **Domain:** Cybersecurity, Artificial Intelligence, Network Simulation
-> **Development Approach:** Software-based
-> **Status:** Academic prototype / development project
+> **Project Type:** Academic Project\
+> **Domain:** Cybersecurity, Artificial Intelligence, Network Simulation\
+> **Development Approach:** Software-based\
+> **Status:** Academic prototype / development project\
 
 ---
 
