@@ -268,7 +268,7 @@ The project does not authorize or encourage unauthorized access, disruption, sca
 
 ## Author
 
-**Ziham Mahmud**
+**Ziham Mahmud**   
 Computer Science & Engineering Undergraduate   
 Cybersecurity Enthusiast
 
