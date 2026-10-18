@@ -269,7 +269,7 @@ The project does not authorize or encourage unauthorized access, disruption, sca
 ## Author
 
 **Ziham Mahmud**
-Computer Science & Engineering Undergraduate
+Computer Science & Engineering Undergraduate   
 Cybersecurity Enthusiast
 
 GitHub: [zihammahmud](https://github.com/zihammahmud)
